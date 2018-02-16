@@ -3,7 +3,6 @@ from helpers import *
 
 # Scraping Categories
 
-
 def scrape_award_categories():
     res = requests.get("https://en.wikipedia.org/wiki/Golden_Globe_Award")
     # print(res.status_code)
@@ -13,21 +12,28 @@ def scrape_award_categories():
     element = soup.find(id="Categories")
 
     # navigate
-    element = element.parent.next_sibling.next_sibling.next_sibling.next_sibling  # element is <ul> of motion picture awards
+    motion_picture_awards_element = element.parent.next_sibling.next_sibling.next_sibling.next_sibling  # element is <ul> of motion picture awards
 
-    motion_picture_awards = [s for s in element.stripped_strings]
-    # print(motion_picture_awards)
+    motion_picture_awards = []
 
-    element = element.next_sibling.next_sibling.next_sibling.next_sibling  # element is <ul> of tv awards
+    for a in motion_picture_awards_element.find_all('a'):
+        ss = a.stripped_strings
+        for s in ss:
+            # clean string
+            s = s.encode("ascii", errors="ignore").decode().replace('  ', ' ')
+            motion_picture_awards.append(s)
 
-    tv_awards = [s for s in element.stripped_strings]
+    tv_awards_element = motion_picture_awards_element.next_sibling.next_sibling.next_sibling.next_sibling  # element is <ul> of tv awards
 
-    # get rid of ': since 1962'
-    tv_awards = [award.split(':')[0] for award in tv_awards]
+    tv_awards = []
 
-    # get rid of empty strings
-    tv_awards = [s for s in tv_awards if s != '']
-    print(tv_awards)
+    for a in tv_awards_element.find_all('a'):
+        ss = a.stripped_strings
+        for s in ss:
+            # clean string
+            s = s.encode("ascii", errors="ignore").decode().replace('  ', ' ')
+            tv_awards.append(s)
+
     return {'motion_picture_awards': motion_picture_awards, 'tv_awards': tv_awards}
 
-print(scrape_award_categories())
+# pp.pprint(scrape_award_categories())
