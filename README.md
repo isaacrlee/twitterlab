@@ -21,7 +21,9 @@ Run `main.py` to produce output with:
 
 Note: We find output using both the categories extracted from the tweets and categories scraped from Wikipedia.
 
+
 Dependencies:
+* Python 3
 * Beautiful Soup (`pip install beautifulsoup4`)
 * Requests (`pip install requests`)
 
