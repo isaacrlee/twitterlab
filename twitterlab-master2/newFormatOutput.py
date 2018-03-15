@@ -33,6 +33,6 @@ for award in categorys:
 with open('newdatafromat.txt', 'w') as outfile:  
     json.dump(newOutputWay, outfile)
 data = json.load(open('newdatafromat.txt'))
-print(data.keys())
-print(newOutputWay.keys())
+#print(data.keys())
+#print(newOutputWay.keys())
 
