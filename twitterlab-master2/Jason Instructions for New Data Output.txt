@@ -1,0 +1,1 @@
+The newFormatOutput is made in the newFormatOutput.py and shows up in the newdatafromat.txt file.
